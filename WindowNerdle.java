@@ -34,6 +34,8 @@ public class WindowNerdle extends JFrame implements ActionListener {
 	
 	JLabel winGif = new JLabel(new ImageIcon("src/win.gif"));
 	JLabel loseGif = new JLabel(new ImageIcon("src/lose.gif"));
+	
+	JLabel background = new JLabel(new ImageIcon(new ImageIcon("src/background.jpg").getImage().getScaledInstance(500, 250, Image.SCALE_DEFAULT)));
 
 	private BoardCase[][] board; // tableau 2D avec les cases de jeu
 
@@ -41,9 +43,7 @@ public class WindowNerdle extends JFrame implements ActionListener {
 	JButton[] charButtons = new JButton[15];
 	JButton[] difficultyButtons = new JButton[3];
 
-	// crédits, 0 en 1er caratère, règles du jeu au début, priorités matsh, division non euclidienne
-    // boardDisplay à removeAll() pour chaque play again
-	// buttonsDisplay à set background pour chaque play again
+	//  règles du jeu au début, priorités matsh, division non euclidienne
 
 	public WindowNerdle() {
 		super("Nerdle");
@@ -56,11 +56,15 @@ public class WindowNerdle extends JFrame implements ActionListener {
 	}
 
 	private void gameInit() {
+		
 		mainPanel.setLayout(null);
+		//mainPanel.setBounds(0,0,2000,1000);
+		//mainPanel.add(background);
+		//mainPanel.add(winGif);
 		this.add(mainPanel);
 		
 		rulesDisplay.setLayout(null);
-		rulesDisplay.setBounds(500,250,530,250);
+		rulesDisplay.setBounds(220,0,1100,1000);
 		rulesDisplay.setBackground(Color.pink);
 		
 		menuDisplay.setLayout(null);
@@ -70,6 +74,10 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		gameDisplay.setLayout(null);
         gameDisplay.setBounds(220,0,1100,1000);
         gameDisplay.setBackground(Color.blue);
+        
+        creditsDisplay.setLayout(null);
+        creditsDisplay.setBounds(220,0,1100,1000);
+        creditsDisplay.setBackground(Color.orange);
 		
 		boardDisplay.setLayout(null);
 	    boardDisplay.setBounds(0,0,750,1000);
@@ -108,7 +116,7 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		
 		JButton exitRules = new JButton("OK");
 		exitRules.setBackground(new Color(80, 220, 0));
-		exitRules.setBounds(190, 200, 150, 50);
+		exitRules.setBounds(930, 200, 150, 50);
 		exitRules.setFont(new Font("Arial", Font.BOLD, 28));
 		rulesDisplay.add(exitRules);
 		exitRules.addActionListener(this);
@@ -116,9 +124,15 @@ public class WindowNerdle extends JFrame implements ActionListener {
 
 		JButton secretCredits = new JButton("Credits");
 		buttonsDisplay.add(secretCredits);
+		secretCredits.addActionListener(this);
+		
 		
 		JButton exitCredits = new JButton("EXIT");
+		exitCredits.setBackground(Color.lightGray);
+		exitCredits.setBounds(930, 20, 150, 50);
+		exitCredits.setFont(new Font("Arial", Font.BOLD, 28));
 		creditsDisplay.add(exitCredits);
+		exitCredits.addActionListener(this);
 		
 
 		difficultyButtons[0] = new JButton("Easy");
@@ -199,7 +213,7 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		
 		gameDisplay.add(boardDisplay);
 		gameDisplay.add(buttonsDisplay);
-	    mainPanel.add(rulesDisplay);	
+	    mainPanel.add(menuDisplay);	
 		
 		
 		this.revalidate();
@@ -226,6 +240,12 @@ public class WindowNerdle extends JFrame implements ActionListener {
 			choseDifficulty(source);
 		else if (source == "Credits")      //si le joueur a trouvé les crédits
 			credits(source);
+		else if (source == "EXIT") {
+			mainPanel.remove(creditsDisplay);
+			mainPanel.add(menuDisplay);
+			this.revalidate();
+			this.repaint();
+		}
 		else if (source == "OK") {            //quand le joueur a fini de bien lire les règles comme un grand
 			mainPanel.remove(rulesDisplay);
 			mainPanel.add(menuDisplay);
@@ -549,17 +569,31 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		if (totalRounds == 4 && round == 0) {
 			creditsCount+=1;
 			
-			if(creditsCount == 7) {
+			if(creditsCount == 3) {
+				round = 0;
+				totalRounds = 0;
+				nbBoxFilled = 0;
 				creditsCount=0; 
 
-				JLabel textCredits1 = new JLabel("Bravo, vous avez trouvé ce petit Easter Egg (on espère que vous n'avez pas du fouiller dans le code pour ça)", SwingConstants.CENTER);
+			    JLabel textCredits1 = new JLabel("Jeu réalisé par :", SwingConstants.CENTER);
+			    textCredits1.setBounds(0, 210, 1100, 50);
+			    textCredits1.setFont(new Font("Arial", Font.BOLD, 36));
 				creditsDisplay.add(textCredits1);
 				
-				JLabel textCredits2 = new JLabel("Jeu réalisé par :", SwingConstants.CENTER);
+				JLabel textCredits2 = new JLabel("EL AOUFIR Souheïl     MAFROUZ Ahmed     MEURRENS Arthur", SwingConstants.CENTER);
+				textCredits2.setBounds(0, 280, 1100, 50);
+				textCredits2.setFont(new Font("Arial", Font.BOLD, 34));
 				creditsDisplay.add(textCredits2);
 				
-				JLabel textCredits3 = new JLabel("EL AOUFIR Souheïl    MAFROUZ Ahmed    MEURRENS Arthur", SwingConstants.CENTER);
+				JLabel textCredits3 = new JLabel("Merci d'avoir joué :-)", SwingConstants.CENTER);
+				textCredits3.setBounds(0, 490, 1100, 50);
+				textCredits3.setFont(new Font("Arial", Font.BOLD, 36));
 				creditsDisplay.add(textCredits3);
+				
+				JLabel textCredits4 = new JLabel("(et bravo si vous vous avez trouvé les crédits sans tricher)", SwingConstants.CENTER);
+				textCredits4.setBounds(0, 560, 1100, 50);
+				textCredits4.setFont(new Font("Arial", Font.BOLD, 36));
+				creditsDisplay.add(textCredits4);
 								
 				mainPanel.remove(gameDisplay);
 				mainPanel.add(creditsDisplay);
