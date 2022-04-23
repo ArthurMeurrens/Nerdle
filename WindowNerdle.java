@@ -9,11 +9,11 @@ import java.util.Arrays;
 
 public class WindowNerdle extends JFrame implements ActionListener {
 	private Equation finalEquation;
-	private char[] equationPlayed = new char[8]; // on crée un tableau de char pour récupérer la proposition du joueur
+	private char[] equationPlayed = new char[8]; // on crï¿½e un tableau de char pour rï¿½cupï¿½rer la proposition du joueur
 	private int[] caseStates = {0, 0, 0, 0, 0, 0, 0, 0};
 
-	private int round = 0; // compteur du nombre de tours joué par le joueur
-	private int nbBoxFilled = 0; // compteur du nombre de caractères joués par le joueur
+	private int round = 0; // compteur du nombre de tours jouï¿½ par le joueur
+	private int nbBoxFilled = 0; // compteur du nombre de caractï¿½res jouï¿½s par le joueur
 	private int totalRounds = 0;
 	private int creditsCount = 0;
 
@@ -43,7 +43,7 @@ public class WindowNerdle extends JFrame implements ActionListener {
 	JButton[] charButtons = new JButton[15];
 	JButton[] difficultyButtons = new JButton[3];
 
-	//  règles du jeu au début, priorités matsh, division non euclidienne
+	//  rï¿½gles du jeu au dï¿½but, prioritï¿½s matsh, division non euclidienne
 
 	public WindowNerdle() {
 		super("Nerdle");
@@ -65,11 +65,11 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		
 		rulesDisplay.setLayout(null);
 		rulesDisplay.setBounds(220,0,1100,1000);
-		rulesDisplay.setBackground(Color.pink);
+		//rulesDisplay.setBackground(Color.pink);
 		
 		menuDisplay.setLayout(null);
 		menuDisplay.setBounds(500,250,530,250);
-	    menuDisplay.setBackground(Color.yellow);	
+	    menuDisplay.setBackground(new Color(220,220,220));	
 		
 		gameDisplay.setLayout(null);
         gameDisplay.setBounds(220,0,1100,1000);
@@ -81,15 +81,15 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		
 		boardDisplay.setLayout(null);
 	    boardDisplay.setBounds(0,0,750,1000);
-	    boardDisplay.setBackground(Color.orange);
+	    boardDisplay.setBackground(new Color(220,220,220));
 	    
 	    buttonsDisplay.setLayout(null);
 	    buttonsDisplay.setBounds(750,0,350,1000);
-	    buttonsDisplay.setBackground(Color.green);
+	    buttonsDisplay.setBackground(new Color(220,220,220));
 	    
 	    endGameDisplay.setLayout(null);
 	    endGameDisplay.setBounds(750,0,350,1000);
-	    endGameDisplay.setBackground(Color.red);
+	    endGameDisplay.setBackground(new Color(220,220,220));
 
 
 	    
@@ -107,16 +107,45 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		loseGif.setBounds(0, 250, 350, 400);
 		
 		
+		Font policeParagraphe = new Font("Arial", Font.PLAIN, 22);
+		Font couleur = new Font("Arial", Font.BOLD, 22);
 		
-		JTextArea rules = new JTextArea("Voici les règles du jeu : \n-Mange tes Morts\nBien Cordialement");
-		rules.setEditable(false);
-		rules.setBounds(0, 0, 530, 200);
-		rules.setFont(new Font("Arial", Font.PLAIN, 18));
-		rulesDisplay.add(rules);
+		String txtrules1 = "Comment jouer ?";
+		JLabel rules1 = new JLabel("                                  "+txtrules1);
+		rules1.setBounds(160, 200, 600, 30);
+		rules1.setFont(new Font("Arial", Font.BOLD, 28));
+		rules1.setForeground(Color.black);
+		rulesDisplay.add(rules1);
+		
+		String txtrules2 = "Le but du jeu est de deviner une Ã©quation, vous allez avoir plusieurs essais\n pour proposer des Ã©quations (correctes bien sur ! ) . Le jeu vous indiquera\n alors si vous Ãªtes proches de la rÃ©ponse. En effet,\n\n - Si des caractÃ¨res deviennent            alors ils sont bien placÃ©s par rapport Ã \n l'Ã©quation rÃ©ponse\n - Si les caractÃ¨res deviennent                 ,cela signifie qu'il sont prÃ©sents dans\n l'Ã©quation rÃ©ponse mais pas au bon endroit.\n - Si les caractÃ¨res deviennent            alors cela siginifie qu'ils ne sont pas \n prÃ©sents dans l'Ã©quation rÃ©ponse.  \n\n                                  Attention Ã  vos prioritÃ©s opÃ©ratoires !  "; 
+		JTextArea rules2 = new JTextArea(txtrules2);
+		rules2.setEditable(false);
+		rules2.setBounds(180, 300, 750, 350);
+		rules2.setFont(policeParagraphe); 
+		rules2.setForeground(new Color (100,100,100));
+		rulesDisplay.add(rules2);
+		
+		JLabel rules3 = new JLabel(" verts");
+		rules3.setBounds(300, 102, 600, 30);
+		rules3.setFont(couleur);
+		rules3.setForeground(Color.green);
+		rules2.add(rules3);
+		
+		JLabel rules4 = new JLabel(" oranges");
+		rules4.setBounds(295, 154, 600, 30);
+		rules4.setFont(couleur);
+		rules4.setForeground(new Color(230,90,15));
+		rules2.add(rules4);
+		
+		JLabel rules5 = new JLabel(" noirs");
+		rules5.setBounds(294, 205, 600, 30);
+		rules5.setFont(couleur);
+		rules5.setForeground(new Color(0,0,0));
+		rules2.add(rules5);
 		
 		JButton exitRules = new JButton("OK");
-		exitRules.setBackground(new Color(80, 220, 0));
-		exitRules.setBounds(930, 200, 150, 50);
+		exitRules.setBackground(new Color(200, 200, 200));
+		exitRules.setBounds(470, 700, 150, 50);
 		exitRules.setFont(new Font("Arial", Font.BOLD, 28));
 		rulesDisplay.add(exitRules);
 		exitRules.addActionListener(this);
@@ -203,9 +232,10 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		actionButtons[1].addActionListener(this);
 		
 		actionButtons[2] = new JButton("Play Again");
-		actionButtons[2].setBackground(new Color(102, 0, 153));
+		actionButtons[2].setBackground(new Color(120, 120, 120));
 		actionButtons[2].setForeground(new Color(255, 255, 255));
-		actionButtons[2].setBounds(820, 700, 150, 50);
+		actionButtons[2].setFont(new Font("Arial", Font.BOLD, 20));
+		actionButtons[2].setBounds(820, 700, 200, 75);
 		gameDisplay.add(actionButtons[2]);
 		actionButtons[2].addActionListener(this);
 
@@ -213,7 +243,8 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		
 		gameDisplay.add(boardDisplay);
 		gameDisplay.add(buttonsDisplay);
-	    mainPanel.add(menuDisplay);	
+	    //mainPanel.add(menuDisplay);	
+	    mainPanel.add(rulesDisplay);
 		
 		
 		this.revalidate();
@@ -234,11 +265,11 @@ public class WindowNerdle extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		JButton selectedButton = (JButton) e.getSource();
 		String source = selectedButton.getText();
-		if (source == "Enter" || source == "Delete" || source == "Play Again") // si le joueur a selectionné un bouton action																			
+		if (source == "Enter" || source == "Delete" || source == "Play Again") // si le joueur a selectionnï¿½ un bouton action																			
 			newAction(source);
-		else if (source == "Easy" || source == "Medium" || source == "Hard") // si le joueur a selectionné un niveau de difficulté																				
+		else if (source == "Easy" || source == "Medium" || source == "Hard") // si le joueur a selectionnï¿½ un niveau de difficultï¿½																				
 			choseDifficulty(source);
-		else if (source == "Credits")      //si le joueur a trouvé les crédits
+		else if (source == "Credits")      //si le joueur a trouvï¿½ les crï¿½dits
 			credits(source);
 		else if (source == "EXIT") {
 			mainPanel.remove(creditsDisplay);
@@ -246,13 +277,13 @@ public class WindowNerdle extends JFrame implements ActionListener {
 			this.revalidate();
 			this.repaint();
 		}
-		else if (source == "OK") {            //quand le joueur a fini de bien lire les règles comme un grand
+		else if (source == "OK") {            //quand le joueur a fini de bien lire les rï¿½gles comme un grand
 			mainPanel.remove(rulesDisplay);
 			mainPanel.add(menuDisplay);
 			this.revalidate();
 			this.repaint();
 		}	
-		else // si le joueur a sélectionné un chiffre ou un opérateur
+		else // si le joueur a sï¿½lectionnï¿½ un chiffre ou un opï¿½rateur
 			newChar(source);
 	}
 
@@ -279,17 +310,17 @@ public class WindowNerdle extends JFrame implements ActionListener {
 	}
 
 	private void updateDisplay(int[] states) {
-		for (int i = 0; i < 8; i++) { // mettre à jour les cases de la lignes
+		for (int i = 0; i < 8; i++) { // mettre ï¿½ jour les cases de la lignes
 			board[round][i].setState(states[i]);
 		}
 
 		for (int i = 0; i < charButtons.length; i++) {      // mettre a jour les boutons
 			if (charButtons[i].getBackground() == Color.lightGray) {
 				if(rightPos.contains(charButtons[i].getText().charAt(0))) {
-					charButtons[i].setBackground(Color.green);
+					charButtons[i].setBackground(new Color(123,217,131));
 				}
 				else if (wrongPos.contains(charButtons[i].getText().charAt(0))) {
-					charButtons[i].setBackground(Color.red);
+					charButtons[i].setBackground(new Color(255,113,104));
 					charButtons[i].setForeground(Color.white);
 				}
 				else if (wrongChar.contains(charButtons[i].getText().charAt(0))) {
@@ -307,31 +338,31 @@ public class WindowNerdle extends JFrame implements ActionListener {
 
 		case "Enter":
 			int nbTerms = 1;
-			if (nbBoxFilled == 8) { // on vérifie si le joueur a joué toutes les cases
+			if (nbBoxFilled == 8) { // on vï¿½rifie si le joueur a jouï¿½ toutes les cases
 				ArrayList<Integer> operatorsPos = new ArrayList<>();
 				ArrayList<Character> operatorsList = new ArrayList<>();
 				
 				for (int i = 0; i < 8; i++) {
 					if (isAnOperator(equationPlayed[i])) {
-						operatorsPos.add(i); // on récupère la position de tous les opérateurs : +, -, *, / et = dans // une ArrayList												
+						operatorsPos.add(i); // on rï¿½cupï¿½re la position de tous les opï¿½rateurs : +, -, *, / et = dans // une ArrayList												
 						operatorsList.add(equationPlayed[i]);
 					}
 				}
 				
 
 				for (int i = 1; i < 8; i++) {
-					if (!isAnOperator(equationPlayed[i]) && isAnOperator(equationPlayed[i - 1])) // on compte le nombre de termes dans l'équation																								
+					if (!isAnOperator(equationPlayed[i]) && isAnOperator(equationPlayed[i - 1])) // on compte le nombre de termes dans l'ï¿½quation																								
 						nbTerms += 1;
 				}
 				
 				
 				if (!operatorsList.isEmpty()) {
 					if (nbTerms - operatorsPos.size() == 1 && operatorsList.get(operatorsList.size() - 1) == '='
-							&& Collections.frequency(operatorsList, '=') == 1) { // on vérifie si l'équation est correcte au niveau de la syntaxe
-						if (correctMath(equationPlayed, nbTerms, operatorsPos, operatorsList)) { // on vérifie si l'équation entrée est juste mathématiquement																																								
+							&& Collections.frequency(operatorsList, '=') == 1) { // on vï¿½rifie si l'ï¿½quation est correcte au niveau de la syntaxe
+						if (correctMath(equationPlayed, nbTerms, operatorsPos, operatorsList)) { // on vï¿½rifie si l'ï¿½quation entrï¿½e est juste mathï¿½matiquement																																								
 							gameRound();
 						} else {
-							JOptionPane.showMessageDialog(null, "Veuillez entrer une équation juste",  " ", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Veuillez entrer une ï¿½quation juste",  " ", JOptionPane.WARNING_MESSAGE);
 							nbBoxFilled = 0;
 							for (int i = 0; i < equationPlayed.length; i++) {
 								equationPlayed[i] = ' ';
@@ -342,7 +373,7 @@ public class WindowNerdle extends JFrame implements ActionListener {
 						}
 
 					} else {
-						JOptionPane.showMessageDialog(null, "Veuillez entrer une équation valide", " ", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Veuillez entrer une ï¿½quation valide", " ", JOptionPane.ERROR_MESSAGE);
 						nbBoxFilled = 0;
 						for (int i = 0; i < equationPlayed.length; i++) {
 							equationPlayed[i] = ' ';
@@ -354,7 +385,7 @@ public class WindowNerdle extends JFrame implements ActionListener {
 					
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Ceci n'est pas une équation",  " ", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Ceci n'est pas une ï¿½quation",  " ", JOptionPane.ERROR_MESSAGE);
 					nbBoxFilled = 0;
 					for (int i = 0; i < equationPlayed.length; i++) {
 						equationPlayed[i] = ' ';
@@ -367,9 +398,9 @@ public class WindowNerdle extends JFrame implements ActionListener {
 			break;
 
 		case "Delete":
-			if (nbBoxFilled > 0) { // on verifie si le joueur a au moins joué une case
+			if (nbBoxFilled > 0) { // on verifie si le joueur a au moins jouï¿½ une case
 				nbBoxFilled -= 1;
-				equationPlayed[nbBoxFilled] = ' '; // le égale donne l'illusion d'une valeur nulle
+				equationPlayed[nbBoxFilled] = ' '; // le ï¿½gale donne l'illusion d'une valeur nulle
 				board[round][nbBoxFilled].setChar(' ');
 				this.repaint();
 			}
@@ -378,10 +409,19 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		case "Play Again":
 			round = 0;
 			totalRounds = 0;
-			nbBoxFilled = 0; // réinitialiser les variables
+			nbBoxFilled = 0; // rï¿½initialiser les variables
 			creditsCount = 0;
-
-			for (int i = 0; i < charButtons.length; i++) { // réinitialiser le couleurs des boutons
+			
+			for (int i = 0; i < 8; i++) {
+                equationPlayed[i] = ' ';
+                caseStates[i] = 0;
+            }
+            rightPos.removeAll(rightPos);
+            wrongPos.removeAll(wrongPos);
+            wrongChar.removeAll(wrongChar);
+            
+            
+			for (int i = 0; i < charButtons.length; i++) { // rï¿½initialiser le couleurs des boutons
 				charButtons[i].setBackground(Color.lightGray);
 				charButtons[i].setForeground(Color.black);
 			}
@@ -403,7 +443,7 @@ public class WindowNerdle extends JFrame implements ActionListener {
 
 	private void endGame() {
 		if (Arrays.equals(equationPlayed, finalEquation.getEquation())) {
-			finalText.setText("Gagné !");   // gagné
+			finalText.setText("Gagnï¿½ !");   // gagnï¿½
 			endGameDisplay.remove(loseGif);
 			endGameDisplay.add(winGif);
 			gameDisplay.remove(buttonsDisplay);
@@ -427,7 +467,7 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		if (nbTerms == 3) {
 			int x = 0, y = 0, z = 0;
 			
-			for (int i = operatorsPos.get(0) - 1; i > -1; i--) {   // on récupère les valeurs des termes dans des int
+			for (int i = operatorsPos.get(0) - 1; i > -1; i--) {   // on rï¿½cupï¿½re les valeurs des termes dans des int
 				x = (int) (x + Math.pow(10, operatorsPos.get(0) - 1 - i) * Character.getNumericValue(equation[i]));
 			}
 			for (int i = operatorsPos.get(1) - 1; i > operatorsPos.get(0); i--) {
@@ -575,22 +615,22 @@ public class WindowNerdle extends JFrame implements ActionListener {
 				nbBoxFilled = 0;
 				creditsCount=0; 
 
-			    JLabel textCredits1 = new JLabel("Jeu réalisé par :", SwingConstants.CENTER);
+			    JLabel textCredits1 = new JLabel("Jeu rï¿½alisï¿½ par :", SwingConstants.CENTER);
 			    textCredits1.setBounds(0, 210, 1100, 50);
 			    textCredits1.setFont(new Font("Arial", Font.BOLD, 36));
 				creditsDisplay.add(textCredits1);
 				
-				JLabel textCredits2 = new JLabel("EL AOUFIR Souheïl     MAFROUZ Ahmed     MEURRENS Arthur", SwingConstants.CENTER);
+				JLabel textCredits2 = new JLabel("EL AOUFIR Souheï¿½l     MAFROUZ Ahmed     MEURRENS Arthur", SwingConstants.CENTER);
 				textCredits2.setBounds(0, 280, 1100, 50);
 				textCredits2.setFont(new Font("Arial", Font.BOLD, 34));
 				creditsDisplay.add(textCredits2);
 				
-				JLabel textCredits3 = new JLabel("Merci d'avoir joué :-)", SwingConstants.CENTER);
+				JLabel textCredits3 = new JLabel("Merci d'avoir jouï¿½ :-)", SwingConstants.CENTER);
 				textCredits3.setBounds(0, 490, 1100, 50);
 				textCredits3.setFont(new Font("Arial", Font.BOLD, 36));
 				creditsDisplay.add(textCredits3);
 				
-				JLabel textCredits4 = new JLabel("(et bravo si vous vous avez trouvé les crédits sans tricher)", SwingConstants.CENTER);
+				JLabel textCredits4 = new JLabel("(et bravo si vous vous avez trouvï¿½ les crï¿½dits sans tricher)", SwingConstants.CENTER);
 				textCredits4.setBounds(0, 560, 1100, 50);
 				textCredits4.setFont(new Font("Arial", Font.BOLD, 36));
 				creditsDisplay.add(textCredits4);

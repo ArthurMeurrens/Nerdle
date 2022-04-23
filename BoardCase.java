@@ -8,7 +8,7 @@ import javax.swing.SwingConstants;
 public class BoardCase {
 	private JPanel p = new JPanel();
 	private JLabel l = new JLabel();
-	private int state;     //0 etat init, 1 faux char, 2 mauvaise position, 3 trouvé
+	private int state;     //0 etat init, 1 faux char, 2 mauvaise position, 3 trouvÃ©
 	
 	public BoardCase(int x, int y) {
 		state=0;
@@ -42,10 +42,10 @@ public class BoardCase {
 			p.setForeground(Color.white);
 			break;
 		case 2:
-			p.setBackground(Color.red);
+			p.setBackground(new Color(255,113,104));
 			break;
 		case 3:
-			p.setBackground(Color.green);
+			p.setBackground(new Color(123,217,131));
 			break;
 		}
 	}
