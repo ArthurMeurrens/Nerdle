@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Arrays;
 
 public class WindowNerdle extends JFrame implements ActionListener {
-	private Equation finalEquation;
+	private EquationTest finalEquation;
 	private char[] equationPlayed = new char[8]; // on cr�e un tableau de char pour r�cup�rer la proposition du joueur
 	private int[] caseStates = {0, 0, 0, 0, 0, 0, 0, 0};
 
@@ -52,12 +52,13 @@ public class WindowNerdle extends JFrame implements ActionListener {
         this.setVisible(true);        
         
         gameInit();
-		finalEquation = new Equation();
+		finalEquation = new EquationTest();
 	}
 
 	private void gameInit() {
 		
 		mainPanel.setLayout(null);
+		mainPanel.setBackground(new Color (240,240,240));
 		//mainPanel.setBounds(0,0,2000,1000);
 		//mainPanel.add(background);
 		//mainPanel.add(winGif);
@@ -120,9 +121,10 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		String txtrules2 = "Le but du jeu est de deviner une équation, vous allez avoir plusieurs essais\n pour proposer des équations (correctes bien sur ! ) . Le jeu vous indiquera\n alors si vous êtes proches de la réponse. En effet,\n\n - Si des caractères deviennent            alors ils sont bien placés par rapport à\n l'équation réponse\n - Si les caractères deviennent                 ,cela signifie qu'il sont présents dans\n l'équation réponse mais pas au bon endroit.\n - Si les caractères deviennent            alors cela siginifie qu'ils ne sont pas \n présents dans l'équation réponse.  \n\n                                  Attention à vos priorités opératoires !  "; 
 		JTextArea rules2 = new JTextArea(txtrules2);
 		rules2.setEditable(false);
-		rules2.setBounds(180, 300, 750, 350);
+		rules2.setBounds(180, 300, 750, 450);
 		rules2.setFont(policeParagraphe); 
 		rules2.setForeground(new Color (100,100,100));
+		rules2.setBackground(new Color (240,240,240));
 		rulesDisplay.add(rules2);
 		
 		JLabel rules3 = new JLabel(" verts");
@@ -143,9 +145,15 @@ public class WindowNerdle extends JFrame implements ActionListener {
 		rules5.setForeground(new Color(0,0,0));
 		rules2.add(rules5);
 		
+		JLabel rules6 = new JLabel(" exemples d'équations valides : 11 + 22 = 33  ,  101 - 7 = 94 ");
+		rules6.setBounds(100,355, 600, 30);
+		rules6.setFont(new Font("Arial", Font.ITALIC, 20));
+		rules6.setForeground(new Color(150,150,150));
+		rules2.add(rules6);
+		
 		JButton exitRules = new JButton("OK");
 		exitRules.setBackground(new Color(200, 200, 200));
-		exitRules.setBounds(470, 700, 150, 50);
+		exitRules.setBounds(470, 800, 150, 50);
 		exitRules.setFont(new Font("Arial", Font.BOLD, 28));
 		rulesDisplay.add(exitRules);
 		exitRules.addActionListener(this);
@@ -426,7 +434,7 @@ public class WindowNerdle extends JFrame implements ActionListener {
 				charButtons[i].setForeground(Color.black);
 			}
 
-			finalEquation = new Equation();
+			finalEquation = new EquationTest();
 			
 			boardDisplay.removeAll();
 			mainPanel.remove(gameDisplay);
